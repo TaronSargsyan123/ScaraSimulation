@@ -3,7 +3,6 @@ package com.example.scarasimulation;
 import javafx.application.Application;
 import javafx.scene.*;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.*;
@@ -13,9 +12,16 @@ import javafx.stage.Stage;
 
 
 public class HelloApplication extends Application {
+    Group armGroup = new Group();
+    Group outerLinkGroup = new Group();
+
+    Sphere target = new Sphere(0.2);
 
     private int subSceneWidth = 800;
     private int subSceneHeight = 600;
+
+    double armGroupAngle = 0;
+    double outerLinkGroupAngle = 0;
 
     double x = -5;
     double y = 4;
@@ -23,7 +29,7 @@ public class HelloApplication extends Application {
     Kinematics kinematics = new Kinematics();
 
 
-    double innerLinkSize = 5;
+    double innerLinkSize = 7;
     double outerLinkSize = 5;
 
 
@@ -66,48 +72,28 @@ public class HelloApplication extends Application {
         scene.setOnKeyPressed(e -> {
 
             if (e.getCode() == KeyCode.UP){
-                mainGroup.getChildren().remove(subScene);
                 y--;
-                SubScene newSubScene = new SubScene(drawRobot(x, y), subSceneWidth, subSceneHeight, true, SceneAntialiasing.BALANCED);
-                newSubScene.setFill(Color.BLACK);
-                Camera newCamera = new PerspectiveCamera(true);
-                setCameraPos(newCamera);
-                newSubScene.setCamera(newCamera);
-                mainGroup.getChildren().add(newSubScene);
+                changeArmPos();
+
 
 
 
             }else if (e.getCode() == KeyCode.DOWN){
-                mainGroup.getChildren().remove(subScene);
                 y++;
-                SubScene newSubScene = new SubScene(drawRobot(x, y), subSceneWidth, subSceneHeight, true, SceneAntialiasing.BALANCED);
-                newSubScene.setFill(Color.BLACK);
-                Camera newCamera = new PerspectiveCamera(true);
-                setCameraPos(newCamera);
-                newSubScene.setCamera(newCamera);
-                mainGroup.getChildren().add(newSubScene);
+                changeArmPos();
+
 
 
 
             }else if (e.getCode() == KeyCode.RIGHT){
-                mainGroup.getChildren().remove(subScene);
                 x++;
-                SubScene newSubScene = new SubScene(drawRobot(x, y), subSceneWidth, subSceneHeight, true, SceneAntialiasing.BALANCED);
-                newSubScene.setFill(Color.BLACK);
-                Camera newCamera = new PerspectiveCamera(true);
-                setCameraPos(newCamera);
-                newSubScene.setCamera(newCamera);
-                mainGroup.getChildren().add(newSubScene);
+                changeArmPos();
+
+
 
             }else if (e.getCode() == KeyCode.LEFT){
-                mainGroup.getChildren().remove(subScene);
                 x--;
-                SubScene newSubScene = new SubScene(drawRobot(x, y), subSceneWidth, subSceneHeight, true, SceneAntialiasing.BALANCED);
-                newSubScene.setFill(Color.BLACK);
-                Camera newCamera = new PerspectiveCamera(true);
-                setCameraPos(newCamera);
-                newSubScene.setCamera(newCamera);
-                mainGroup.getChildren().add(newSubScene);
+                changeArmPos();
             }
             System.out.println(x + ", " + y);
 
@@ -118,10 +104,7 @@ public class HelloApplication extends Application {
     }
 
     private Group drawRobot(double x, double y){
-        Group armGroup = new Group();
-        Group outerLinkGroup = new Group();
 
-        Sphere target = new Sphere(0.2);
 
         Cylinder plane = new Cylinder(10, 0.1);
         Cylinder cylinder = new Cylinder(2.5, 5);
@@ -162,17 +145,9 @@ public class HelloApplication extends Application {
         outerLinkGroup.getChildren().addAll(outerLinkStartCylinder, outerLink, outerLinkEndCylinder);
         armGroup.getChildren().addAll(innerLink, innerLinkStartCylinder, innerLinkEndCylinder, outerLinkGroup);
 
-//        setPos(x, y);
-        double[] angles1 = kinematics.inverseKinematics(x, y);
-        Rotate rotate1 = new Rotate(angles1[0], 0, -4, 0, Rotate.Y_AXIS);
-        System.out.println("Joint Angles: (" + angles1[0] + ", " + angles1[1] + ")");
-        armGroup.getTransforms().add(rotate1);
+        setPos(x, y);
 
-//        Translate translateTarget = new Translate(tempX, -5, -tempY);
-//        target.getTransforms().add(translateTarget);
 
-        Rotate rotate = new Rotate(angles1[1], innerLinkSize, -4, 0, Rotate.Y_AXIS);
-        outerLinkGroup.getTransforms().add(rotate);
 
         Group root = new Group();
         root.getChildren().add(camera);
@@ -188,9 +163,22 @@ public class HelloApplication extends Application {
     private void setCameraPos(Camera camera){
         camera.getTransforms().addAll(
                 //-(innerLinkSize + outerLinkSize)*3.5
-                new Rotate(-60, Rotate.X_AXIS),
+                new Rotate(-55, Rotate.X_AXIS),
                 new Translate(0, 0, -(innerLinkSize + outerLinkSize)*4)
         );
+    }
+
+    private void changeArmPos(){
+        double[] angles = kinematics.inverseKinematics(x, y);
+        double armGroupDeltaAngle = angles[0]- armGroupAngle;
+        Rotate rotateInnerLink = new Rotate(armGroupDeltaAngle, 0, -4, 0, Rotate.Y_AXIS);
+        System.out.println("Joint Angles: (" + angles[0] + ", " + angles[1] + ")");
+        armGroup.getTransforms().add(rotateInnerLink);
+        double outerLinkGroupDeltaAngle = angles[1]- outerLinkGroupAngle;
+        Rotate rotateOuterLink = new Rotate(outerLinkGroupDeltaAngle, innerLinkSize, -4, 0, Rotate.Y_AXIS);
+        outerLinkGroup.getTransforms().add(rotateOuterLink);
+        armGroupAngle = angles[0];
+        outerLinkGroupAngle = angles[1];
     }
 
 
@@ -198,17 +186,16 @@ public class HelloApplication extends Application {
         launch();
     }
 
-//    private void setPos(double tempX, double tempY){
-////        double[] angles1 = kinematics.inverseKinematics(tempX, tempY);
-////        Rotate rotate1 = new Rotate(angles1[0], 0, -4, 0, Rotate.Y_AXIS);
-////        System.out.println("Joint Angles: (" + angles1[0] + ", " + angles1[1] + ")");
-////        armGroup.getTransforms().add(rotate1);
-////
-//////        Translate translateTarget = new Translate(tempX, -5, -tempY);
-//////        target.getTransforms().add(translateTarget);
-////
-////        Rotate rotate = new Rotate(angles1[1], innerLinkSize, -4, 0, Rotate.Y_AXIS);
-////        outerLinkGroup.getTransforms().add(rotate);
-//
-//    }
+    private void setPos(double tempX, double tempY){
+        double[] angles = kinematics.inverseKinematics(tempX, tempY);
+        Rotate rotateInnerLink = new Rotate(angles[0], 0, -4, 0, Rotate.Y_AXIS);
+        System.out.println("Joint Angles: (" + angles[0] + ", " + angles[1] + ")");
+        armGroup.getTransforms().add(rotateInnerLink);
+
+        Rotate rotateOuterLink = new Rotate(angles[1], innerLinkSize, -4, 0, Rotate.Y_AXIS);
+        outerLinkGroup.getTransforms().add(rotateOuterLink);
+        armGroupAngle =  angles[0];
+        outerLinkGroupAngle = angles[1];
+
+    }
 }
