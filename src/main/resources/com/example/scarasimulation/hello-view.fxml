@@ -14,7 +14,7 @@
             fx:controller="com.example.scarasimulation.HelloController"
             xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <AnchorPane onKeyPressed="#handleKeyReleased" onKeyReleased="#handleKeyReleased" fx:id="main_anchor_pane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: yellow;" BorderPane.alignment="CENTER" />
+      <AnchorPane fx:id="main_anchor_pane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: yellow;" BorderPane.alignment="CENTER" />
    </center>
    <right>
        <VBox fx:id="right_vbox" prefHeight="200.0" prefWidth="250.0" style="-fx-background-color: red;" BorderPane.alignment="CENTER" >
