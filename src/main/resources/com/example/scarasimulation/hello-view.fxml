@@ -1,16 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.scarasimulation.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+<?import javafx.scene.control.Button?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/17"
+            fx:controller="com.example.scarasimulation.HelloController"
+            xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <AnchorPane onKeyPressed="#handleKeyReleased" onKeyReleased="#handleKeyReleased" fx:id="main_anchor_pane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: yellow;" BorderPane.alignment="CENTER" />
+   </center>
+   <right>
+       <VBox fx:id="right_vbox" prefHeight="200.0" prefWidth="250.0" style="-fx-background-color: red;" BorderPane.alignment="CENTER" >
+           <Button text="Up" fx:id="up_button"/>
+           <Button text="Left" fx:id="left_button"/>
+           <Button text="Right" fx:id="right_button"/>
+           <Button text="Down" fx:id="down_button"/>
+       </VBox>
+   </right>
+   <bottom>
+      <AnchorPane prefHeight="150" prefWidth="600.0" style="-fx-background-color: green;" BorderPane.alignment="CENTER" />
+   </bottom>
+
+</BorderPane>
