@@ -27,6 +27,9 @@ public class HelloApplication extends Application {
         Scene scene = new Scene(root);
         HelloController controller = loader.getController();
         scene.setOnKeyPressed(controller::keyEvent);
+        scene.widthProperty().addListener((observable, oldValue, newValue) -> controller.resizeSubScene());
+        scene.heightProperty().addListener((observable, oldValue, newValue) -> controller.resizeSubScene());
+
         primaryStage.setScene(scene);
         primaryStage.setTitle("SCARA Simulation");
         primaryStage.show();

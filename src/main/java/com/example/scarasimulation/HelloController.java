@@ -42,12 +42,14 @@ public class HelloController {
 
     private SCARAModel scaraModel;
 
+//
+//
+//
+//
+//    @FXML
+//    public VBox right_vbox;
 
-
-
-
-    @FXML
-    public VBox right_vbox;
+    public SubScene subScene;
 
     @FXML
     public AnchorPane main_anchor_pane;
@@ -74,7 +76,7 @@ public class HelloController {
         startGroup.getChildren().add(light);
         mainGroup.getChildren().add(light);
 
-        SubScene subScene = new SubScene(startGroup, subSceneWidth, subSceneHeight, true, SceneAntialiasing.BALANCED);
+        subScene = new SubScene(startGroup, subSceneWidth, subSceneHeight, true, SceneAntialiasing.BALANCED);
         subScene.setFill(scaraModel.getBackgroundColor());
         subScene.setCamera(camera);
 
@@ -85,34 +87,34 @@ public class HelloController {
 
 
 
-        up_button.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                y--;
-                scaraModel.changeArmPos(x,y);
-            }
-        });
-        down_button.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                y++;
-                scaraModel.changeArmPos(x,y);
-            }
-        });
-        left_button.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                x--;
-                scaraModel.changeArmPos(x,y);
-            }
-        });
-        right_button.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                x++;
-                scaraModel.changeArmPos(x,y);
-            }
-        });
+//        up_button.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent actionEvent) {
+//                y--;
+//                scaraModel.changeArmPos(x,y);
+//            }
+//        });
+//        down_button.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent actionEvent) {
+//                y++;
+//                scaraModel.changeArmPos(x,y);
+//            }
+//        });
+//        left_button.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent actionEvent) {
+//                x--;
+//                scaraModel.changeArmPos(x,y);
+//            }
+//        });
+//        right_button.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent actionEvent) {
+//                x++;
+//                scaraModel.changeArmPos(x,y);
+//            }
+//        });
     }
 
 
@@ -152,6 +154,17 @@ public class HelloController {
                 scaraModel.changeArmPos(x, y);
             }
         }
+    }
+
+    public SubScene betSubScene(){
+        return subScene;
+    }
+
+    public void resizeSubScene() {
+        double sceneWidth = subScene.getScene().getWidth();
+        double sceneHeight = subScene.getScene().getHeight();
+        subScene.setWidth(sceneWidth);
+        subScene.setHeight(sceneHeight);
     }
 
 

@@ -16,16 +16,16 @@
    <center>
       <AnchorPane fx:id="main_anchor_pane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: yellow;" BorderPane.alignment="CENTER" />
    </center>
-   <right>
-       <VBox fx:id="right_vbox" prefHeight="200.0" prefWidth="250.0" style="-fx-background-color: red;" BorderPane.alignment="CENTER" >
-           <Button text="Up" fx:id="up_button"/>
-           <Button text="Left" fx:id="left_button"/>
-           <Button text="Right" fx:id="right_button"/>
-           <Button text="Down" fx:id="down_button"/>
-       </VBox>
-   </right>
-   <bottom>
-      <AnchorPane prefHeight="150" prefWidth="600.0" style="-fx-background-color: green;" BorderPane.alignment="CENTER" />
-   </bottom>
+<!--   <right>-->
+<!--       <VBox fx:id="right_vbox" prefHeight="200.0" prefWidth="250.0" style="-fx-background-color: red;" BorderPane.alignment="CENTER" >-->
+<!--           <Button text="Up" fx:id="up_button"/>-->
+<!--           <Button text="Left" fx:id="left_button"/>-->
+<!--           <Button text="Right" fx:id="right_button"/>-->
+<!--           <Button text="Down" fx:id="down_button"/>-->
+<!--       </VBox>-->
+<!--   </right>-->
+<!--   <bottom>-->
+<!--      <AnchorPane prefHeight="150" prefWidth="600.0" style="-fx-background-color: green;" BorderPane.alignment="CENTER" />-->
+<!--   </bottom>-->
 
 </BorderPane>
