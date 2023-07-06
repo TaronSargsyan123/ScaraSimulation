@@ -11,6 +11,12 @@ import javafx.scene.transform.Translate;
 
 public class SCARAModel {
 
+    private final Color innerLinkColor = Color.rgb(255, 190, 10);
+    private final Color outerLinkColor = Color.rgb(0, 206, 209);
+    private final Color backgroundColor = Color.rgb(213,213,213);
+    private final Color standColor = Color.rgb(85,173,122);
+    private final Color planeColor = Color.rgb(255, 255, 255);
+
     private Camera camera;
 
     private Group armGroup = new Group();
@@ -19,19 +25,19 @@ public class SCARAModel {
     private double armGroupAngle = 0;
     private double outerLinkGroupAngle = 0;
 
-    private Kinematics kinematics = new Kinematics();
+    private final Kinematics kinematics = new Kinematics();
 
     private double x;
     private  double y;
 
     private Group root = new Group();
 
-    private double innerLinkSize = 5;
-    private double outerLinkSize = 5;
+    private double innerLinkSize = 11;
+    private double outerLinkSize = 10;
 
 
-    private double innerLinkRadius = innerLinkSize / 100 *15;
-    private double outerLinkRadius = outerLinkSize / 100 *15;
+    private final double innerLinkRadius = innerLinkSize / 100 *15;
+    private final double outerLinkRadius = outerLinkSize / 100 *15;
 
 
 
@@ -65,11 +71,15 @@ public class SCARAModel {
         Box outerLink = new Box(outerLinkSize,1,outerLinkRadius*2);
         Cylinder outerLinkEndCylinder = new Cylinder(outerLinkRadius, 1);
 
-        cylinder.setMaterial(new PhongMaterial(Color.BLUE));
-        plane.setMaterial(new PhongMaterial(Color.ORANGE));
-        outerLinkStartCylinder.setMaterial(new PhongMaterial(Color.RED));
-        outerLink.setMaterial(new PhongMaterial(Color.RED));
-        outerLinkEndCylinder.setMaterial(new PhongMaterial(Color.RED));
+        cylinder.setMaterial(new PhongMaterial(standColor));
+        plane.setMaterial(new PhongMaterial(planeColor));
+        outerLinkStartCylinder.setMaterial(new PhongMaterial(outerLinkColor));
+        outerLink.setMaterial(new PhongMaterial(outerLinkColor));
+        outerLinkEndCylinder.setMaterial(new PhongMaterial(outerLinkColor));
+
+        innerLinkStartCylinder.setMaterial(new PhongMaterial(innerLinkColor));
+        innerLink.setMaterial(new PhongMaterial(innerLinkColor));
+        innerLinkEndCylinder.setMaterial(new PhongMaterial(innerLinkColor));
 
 
         plane.translateYProperty().set(2.5);
@@ -165,6 +175,9 @@ public class SCARAModel {
         return outerLinkSize;
     }
 
+    public Color getBackgroundColor(){
+        return backgroundColor;
+    }
 
 
 }

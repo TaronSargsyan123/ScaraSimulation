@@ -6,17 +6,19 @@ import javafx.fxml.FXML;
 import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
-import javafx.scene.shape.Box;
-import javafx.scene.shape.Cylinder;
-import javafx.scene.shape.Sphere;
+import javafx.scene.shape.*;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class HelloController {
 
@@ -55,14 +57,25 @@ public class HelloController {
     private void initialize() {
 
 
+
+
+
         scaraModel = new SCARAModel(camera, x, y);;
         setCameraPos(camera);
         startGroup = scaraModel.drawRobot(x, y);
         subSceneWidth = 1200;
         subSceneHeight = 700;
 
+        PointLight light = new PointLight(Color.WHITE);
+        light.setTranslateX(-0);
+        light.setTranslateY(-0);
+        light.setTranslateZ(-0);
+
+        startGroup.getChildren().add(light);
+        mainGroup.getChildren().add(light);
+
         SubScene subScene = new SubScene(startGroup, subSceneWidth, subSceneHeight, true, SceneAntialiasing.BALANCED);
-        subScene.setFill(Color.BLACK);
+        subScene.setFill(scaraModel.getBackgroundColor());
         subScene.setCamera(camera);
 
         mainGroup.getChildren().add(subScene);
@@ -107,12 +120,39 @@ public class HelloController {
 
     private void setCameraPos(Camera camera){
         camera.getTransforms().addAll(
-                //-(innerLinkSize + outerLinkSize)*3.5
-                new Rotate(-55, Rotate.X_AXIS),
-                new Translate(0, 0, -(scaraModel.getInnerLinkSize() +scaraModel.getOuterLinkSize())*4)
+                new Rotate(-25, Rotate.X_AXIS),
+                new Translate(0, 0, -(scaraModel.getInnerLinkSize() +scaraModel.getOuterLinkSize())*3)
         );
+
+        Rotate rotation = new Rotate();
+        rotation.setAxis(Rotate.Y_AXIS);
+        rotation.setPivotX(0);
+        rotation.setPivotY(0);
+        rotation.setPivotZ(0);
+        camera.getTransforms().add(rotation);
+
     }
 
+    public void keyEvent(KeyEvent keyEvent){
+        switch (keyEvent.getCode()) {
+            case A -> {
+                x--;
+                scaraModel.changeArmPos(x, y);
+            }
+            case D -> {
+                x++;
+                scaraModel.changeArmPos(x, y);
+            }
+            case W -> {
+                y--;
+                scaraModel.changeArmPos(x, y);
+            }
+            case S -> {
+                y++;
+                scaraModel.changeArmPos(x, y);
+            }
+        }
+    }
 
 
 

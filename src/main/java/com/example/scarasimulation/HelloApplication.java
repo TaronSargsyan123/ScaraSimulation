@@ -25,6 +25,8 @@ public class HelloApplication extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
+        HelloController controller = loader.getController();
+        scene.setOnKeyPressed(controller::keyEvent);
         primaryStage.setScene(scene);
         primaryStage.setTitle("SCARA Simulation");
         primaryStage.show();
