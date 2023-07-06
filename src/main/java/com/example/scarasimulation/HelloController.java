@@ -1,24 +1,14 @@
 package com.example.scarasimulation;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.PhongMaterial;
-import javafx.scene.shape.*;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class HelloController {
 
@@ -36,18 +26,14 @@ public class HelloController {
     private double subSceneHeight = 600;
     private Group startGroup;
 
-
     private double x = -5;
     private double y = 4;
 
     private SCARAModel scaraModel;
 
-//
-//
-//
-//
-//    @FXML
-//    public VBox right_vbox;
+
+    @FXML
+    public VBox right_vbox;
 
     public SubScene subScene;
 
@@ -63,58 +49,28 @@ public class HelloController {
 
 
         scaraModel = new SCARAModel(camera, x, y);;
+        camera.setFarClip(200);
         setCameraPos(camera);
         startGroup = scaraModel.drawRobot(x, y);
         subSceneWidth = 1200;
         subSceneHeight = 700;
-
-        PointLight light = new PointLight(Color.WHITE);
-        light.setTranslateX(-0);
-        light.setTranslateY(-0);
-        light.setTranslateZ(-0);
-
-        startGroup.getChildren().add(light);
-        mainGroup.getChildren().add(light);
-
         subScene = new SubScene(startGroup, subSceneWidth, subSceneHeight, true, SceneAntialiasing.BALANCED);
         subScene.setFill(scaraModel.getBackgroundColor());
         subScene.setCamera(camera);
 
         mainGroup.getChildren().add(subScene);
+
+
+        mainGroup.getChildren().add(drawMenu(200, 300));
+
+
         main_anchor_pane.getChildren().add(mainGroup);
 
 
 
 
 
-//        up_button.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent actionEvent) {
-//                y--;
-//                scaraModel.changeArmPos(x,y);
-//            }
-//        });
-//        down_button.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent actionEvent) {
-//                y++;
-//                scaraModel.changeArmPos(x,y);
-//            }
-//        });
-//        left_button.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent actionEvent) {
-//                x--;
-//                scaraModel.changeArmPos(x,y);
-//            }
-//        });
-//        right_button.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent actionEvent) {
-//                x++;
-//                scaraModel.changeArmPos(x,y);
-//            }
-//        });
+
     }
 
 
@@ -139,21 +95,22 @@ public class HelloController {
         switch (keyEvent.getCode()) {
             case A -> {
                 x--;
-                scaraModel.changeArmPos(x, y);
             }
             case D -> {
                 x++;
-                scaraModel.changeArmPos(x, y);
+
             }
             case W -> {
                 y--;
-                scaraModel.changeArmPos(x, y);
+
             }
             case S -> {
                 y++;
-                scaraModel.changeArmPos(x, y);
+
             }
+
         }
+        scaraModel.changeArmPos(x, y);
     }
 
     public SubScene betSubScene(){
@@ -166,6 +123,22 @@ public class HelloController {
         subScene.setWidth(sceneWidth);
         subScene.setHeight(sceneHeight);
     }
+
+    private VBox drawMenu(double width, double height){
+        VBox vBox = new VBox();
+        vBox.setStyle("-fx-background-color: rgba(255, 255, 255, 0.5); -fx-background-radius: 10;");
+        vBox.setPadding(new Insets(10, 5, 0, 5));
+        vBox.setSpacing(10);
+        Button button = new Button("Click me!!!!!");
+        Button buttonTwo = new Button("Click me!!!!!");
+        button.setPrefWidth(width);
+        buttonTwo.setPrefWidth(width);
+        vBox.getChildren().addAll(button, buttonTwo);
+        vBox.setPrefWidth(width);
+        vBox.setPrefHeight(height);
+        return vBox;
+    }
+
 
 
 

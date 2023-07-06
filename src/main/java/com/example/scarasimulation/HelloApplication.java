@@ -25,13 +25,16 @@ public class HelloApplication extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
+
         HelloController controller = loader.getController();
         scene.setOnKeyPressed(controller::keyEvent);
         scene.widthProperty().addListener((observable, oldValue, newValue) -> controller.resizeSubScene());
         scene.heightProperty().addListener((observable, oldValue, newValue) -> controller.resizeSubScene());
 
+        primaryStage.setMinHeight(500);
+        primaryStage.setMinWidth(500);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("SCARA Simulation");
+        primaryStage.setTitle("SimuBotics");
         primaryStage.show();
 
 
