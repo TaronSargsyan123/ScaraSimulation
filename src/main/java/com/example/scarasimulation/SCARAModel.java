@@ -1,7 +1,9 @@
 package com.example.scarasimulation;
 
+import javafx.scene.AmbientLight;
 import javafx.scene.Camera;
 import javafx.scene.Group;
+import javafx.scene.PointLight;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
@@ -10,6 +12,10 @@ import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 
 public class SCARAModel {
+
+
+    private static final int PLANE_SIZE = 1000;
+    private static final int TEXTURE_SIZE = 50;
 
     private final Color innerLinkColor = Color.rgb(255, 190, 10);
     private final Color outerLinkColor = Color.rgb(0, 206, 209);
@@ -35,11 +41,21 @@ public class SCARAModel {
     private double innerLinkSize = 11;
     private double outerLinkSize = 10;
 
+    private double cylinderHeight = 5;
+    private double cylinderRadius = 2.5;
 
-    private final double innerLinkRadius = innerLinkSize / 100 *15;
-    private final double outerLinkRadius = outerLinkSize / 100 *15;
 
+    private double innerLinkRadius = innerLinkSize / 100 *15;
+    private double outerLinkRadius = outerLinkSize / 100 *15;
 
+    private Cylinder plane;
+    private Cylinder cylinder;
+    private Cylinder innerLinkStartCylinder;
+    private Box innerLink;
+    private Cylinder innerLinkEndCylinder;
+    private Cylinder outerLinkStartCylinder;
+    private Box outerLink;
+    private Cylinder outerLinkEndCylinder;
 
     public SCARAModel(Camera camera, double x, double y){
         this.camera = camera;
@@ -59,20 +75,22 @@ public class SCARAModel {
 
     public Group drawRobot(double x, double y){
 
+        PhongMaterial material = new PhongMaterial();
+        material.setDiffuseMap(createTexture());
 
-        Cylinder plane = new Cylinder(10, 0.1);
-        Cylinder cylinder = new Cylinder(2.5, 5);
+        plane = new Cylinder(50, 0.1);
+        cylinder = new Cylinder(cylinderRadius, cylinderHeight);
 
-        Cylinder innerLinkStartCylinder = new Cylinder(innerLinkRadius, 1);
-        Box innerLink = new Box(innerLinkSize,1,innerLinkRadius*2);
-        Cylinder innerLinkEndCylinder = new Cylinder(innerLinkRadius, 1);
+        innerLinkStartCylinder = new Cylinder(innerLinkRadius, 1);
+        innerLink = new Box(innerLinkSize,1,innerLinkRadius*2);
+        innerLinkEndCylinder = new Cylinder(innerLinkRadius, 1);
 
-        Cylinder outerLinkStartCylinder = new Cylinder(outerLinkRadius, 1);
-        Box outerLink = new Box(outerLinkSize,1,outerLinkRadius*2);
-        Cylinder outerLinkEndCylinder = new Cylinder(outerLinkRadius, 1);
+        outerLinkStartCylinder = new Cylinder(outerLinkRadius, 1);
+        outerLink = new Box(outerLinkSize,1,outerLinkRadius*2);
+        outerLinkEndCylinder = new Cylinder(outerLinkRadius, 1);
 
         cylinder.setMaterial(new PhongMaterial(standColor));
-        plane.setMaterial(new PhongMaterial(planeColor));
+        plane.setMaterial(material);
         outerLinkStartCylinder.setMaterial(new PhongMaterial(outerLinkColor));
         outerLink.setMaterial(new PhongMaterial(outerLinkColor));
         outerLinkEndCylinder.setMaterial(new PhongMaterial(outerLinkColor));
@@ -102,24 +120,61 @@ public class SCARAModel {
         outerLinkGroup.getChildren().addAll(outerLinkStartCylinder, outerLink, outerLinkEndCylinder);
         armGroup.getChildren().addAll(innerLink, innerLinkStartCylinder, innerLinkEndCylinder, outerLinkGroup);
 
+        PointLight pointLight = new PointLight(Color.WHITE);
+        pointLight.setTranslateX(0);
+        pointLight.setTranslateY(-5);
+        pointLight.setTranslateZ(-10);
+
+        // Create an AmbientLight
+        AmbientLight ambientLight = new AmbientLight(Color.WHITE);
+        ambientLight.setLightOn(true);
         setPos(x, y);
 
-        root.getChildren().add(camera);
-        root.getChildren().add(plane);
-        root.getChildren().add(cylinder);
-        root.getChildren().add(armGroup);
+
+
+
+        root.getChildren().addAll(camera, plane, cylinder, armGroup);
 
         return root;
     }
 
-    public Group refreshRobot(){
-        return root;
+    public void refreshRobot(){
+        innerLinkRadius = innerLinkSize / 100 *15;
+        outerLinkRadius = outerLinkSize / 100 *15;
+
+        innerLinkStartCylinder.setRadius(innerLinkRadius);
+        innerLinkEndCylinder.setRadius(innerLinkRadius);
+        outerLinkStartCylinder.setRadius(outerLinkRadius);
+        outerLinkEndCylinder.setRadius(outerLinkRadius);
+
+        this.innerLink.setWidth(innerLinkSize);
+        this.outerLink.setWidth(outerLinkSize);
+        cylinder.setHeight(cylinderHeight);
+        cylinder.setRadius(cylinderRadius);
+
+        plane.translateYProperty().set(2.5);
+        innerLinkStartCylinder.setLayoutY(-3);
+        innerLinkEndCylinder.setLayoutY(-3);
+        innerLinkEndCylinder.translateXProperty().set(innerLinkSize);
+
+        outerLink.translateYProperty().set(-4);
+        outerLink.translateXProperty().set(innerLinkSize + outerLinkSize/2);
+        outerLinkEndCylinder.translateYProperty().set(-4);
+        outerLinkEndCylinder.translateXProperty().set(innerLinkSize + outerLinkSize);
+
+
+        Translate translateLOne = new Translate(innerLinkSize/2, -3, 0);
+        innerLink.getTransforms().add(translateLOne);
+
+        Translate translateLOneCylinder = new Translate(innerLinkSize, -4, 0);
+        outerLinkStartCylinder.getTransforms().add(translateLOneCylinder);
     }
 
 
 
 
     public void changeArmPos(double x, double y){
+        kinematics.setLinks(innerLinkSize, outerLinkSize);
         double[] angles = kinematics.inverseKinematics(x, y);
         double armGroupDeltaAngle = angles[0]- armGroupAngle;
         Rotate rotateInnerLink = new Rotate(armGroupDeltaAngle, 0, -4, 0, Rotate.Y_AXIS);
@@ -132,6 +187,7 @@ public class SCARAModel {
     }
 
     private void setPos(double tempX, double tempY){
+        kinematics.setLinks(innerLinkSize, outerLinkSize);
         double[] angles = kinematics.inverseKinematics(tempX, tempY);
         Rotate rotateInnerLink = new Rotate(angles[0], 0, -4, 0, Rotate.Y_AXIS);
         armGroup.getTransforms().add(rotateInnerLink);
@@ -175,9 +231,52 @@ public class SCARAModel {
         return outerLinkSize;
     }
 
+    public double getCylinderHeight() {
+        return cylinderHeight;
+    }
+
+    public void setCylinderHeight(double cylinderHeight) {
+        this.cylinderHeight = cylinderHeight;
+    }
+
+    public double getCylinderRadius() {
+        return cylinderRadius;
+    }
+
+    public void setCylinderRadius(double cylinderRadius) {
+        this.cylinderRadius = cylinderRadius;
+    }
+
     public Color getBackgroundColor(){
         return backgroundColor;
     }
 
+    private javafx.scene.image.Image createTexture() {
+        int tileSize = TEXTURE_SIZE;
+        int numTiles = PLANE_SIZE / tileSize;
 
+        javafx.scene.image.WritableImage writableImage = new javafx.scene.image.WritableImage(
+                numTiles * tileSize, numTiles * tileSize);
+        javafx.scene.image.PixelWriter pixelWriter = writableImage.getPixelWriter();
+
+        for (int i = 0; i < numTiles; i++) {
+            for (int j = 0; j < numTiles; j++) {
+                int color = (i + j) % 2 == 0 ? 255 : 0;
+                for (int x = 0; x < tileSize; x++) {
+                    for (int y = 0; y < tileSize; y++) {
+                        if (color == 255){
+                            pixelWriter.setColor(i * tileSize + x, j * tileSize + y,
+                                    javafx.scene.paint.Color.rgb(255, 255, 255));
+                        } else {
+                            pixelWriter.setColor(i * tileSize + x, j * tileSize + y,
+                                    javafx.scene.paint.Color.rgb(200, 255, 255));
+                        }
+
+                    }
+                }
+            }
+        }
+
+        return writableImage;
+    }
 }

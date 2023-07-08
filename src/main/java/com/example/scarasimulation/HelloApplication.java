@@ -34,7 +34,7 @@ public class HelloApplication extends Application {
         primaryStage.setMinHeight(500);
         primaryStage.setMinWidth(500);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("SimuBotics");
+        primaryStage.setTitle("SCARA Robot sim");
         primaryStage.show();
 
 
