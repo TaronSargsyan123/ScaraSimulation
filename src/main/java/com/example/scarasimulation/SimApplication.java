@@ -3,18 +3,12 @@ package com.example.scarasimulation;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.PhongMaterial;
-import javafx.scene.shape.*;
-import javafx.scene.transform.Rotate;
-import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 
-public class HelloApplication extends Application {
+public class SimApplication extends Application {
 
 
 
@@ -22,11 +16,11 @@ public class HelloApplication extends Application {
     public void start(Stage primaryStage) throws IOException {
         primaryStage.setResizable(true);
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("main-view.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
 
-        HelloController controller = loader.getController();
+        SimController controller = loader.getController();
         scene.setOnKeyPressed(controller::keyEvent);
         scene.widthProperty().addListener((observable, oldValue, newValue) -> controller.resizeSubScene());
         scene.heightProperty().addListener((observable, oldValue, newValue) -> controller.resizeSubScene());

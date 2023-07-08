@@ -13,12 +13,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 
-public class HelloController {
+public class SimController {
 
 
     private Group mainGroup = new Group();
