@@ -3,6 +3,7 @@ package com.example.scarasimulation;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.*;
@@ -16,6 +17,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class SimController {
 
@@ -35,6 +40,9 @@ public class SimController {
     private double startX = x;
     private double startY = y;
 
+    private double innerLinkSize;
+    private double outerLinkSize;
+
     private SCARAModel scaraModel;
     private VBox vBox = new VBox();
 
@@ -47,6 +55,8 @@ public class SimController {
     private TextField standHeightTextField = new TextField();
     private TextField standRadiusTextField = new TextField();
 
+
+
     @FXML
     public VBox right_vbox;
 
@@ -58,7 +68,29 @@ public class SimController {
 
     @FXML
     private void initialize() {
-        scaraModel = new SCARAModel(camera, x, y);;
+//        scaraModel = new SCARAModel(camera, x, y); //, innerLinkSize, outerLinkSize);;
+//        camera.setFarClip(200);
+//        setCameraPos(camera);
+//        startGroup = scaraModel.drawRobot(x, y);
+//        subSceneWidth = 1200;
+//        subSceneHeight = 700;
+//        subScene = new SubScene(startGroup, subSceneWidth, subSceneHeight, true, SceneAntialiasing.BALANCED);
+//        subScene.setFill(scaraModel.getBackgroundColor());
+//        subScene.setCamera(camera);
+//        mainGroup.getChildren().add(subScene);
+//        mainGroup.getChildren().add(drawMenu(185, subSceneHeight));
+//        main_anchor_pane.getChildren().add(mainGroup);
+    }
+
+    public void start(double innerLinkSize, double outerLinkSize, double height){
+        this.innerLinkSize = innerLinkSize;
+        this.outerLinkSize = outerLinkSize;
+
+        if (this.innerLinkSize != 0 && this.outerLinkSize != 0){
+            scaraModel = new SCARAModel(camera, x, y, innerLinkSize, outerLinkSize);
+        }else {
+            scaraModel = new SCARAModel(camera, x, y);
+        }
         camera.setFarClip(200);
         setCameraPos(camera);
         startGroup = scaraModel.drawRobot(x, y);
@@ -70,7 +102,9 @@ public class SimController {
         mainGroup.getChildren().add(subScene);
         mainGroup.getChildren().add(drawMenu(185, subSceneHeight));
         main_anchor_pane.getChildren().add(mainGroup);
+
     }
+
 
 
 
@@ -212,6 +246,7 @@ public class SimController {
             public void handle(ActionEvent actionEvent) {
                 //vBox.getChildren().remove(simulationGroup);
                 //vBox.getChildren().add(confGroup);
+
             }
         });
 

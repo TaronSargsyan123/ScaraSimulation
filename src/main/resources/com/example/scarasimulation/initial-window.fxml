@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.scarasimulation.InitialWindow">
+   <children>
+      <Button layoutX="124.0" layoutY="218.0" mnemonicParsing="false" prefHeight="92.0" prefWidth="353.0" text="Button" fx:id="change_button"/>
+      <TextField fx:id="inner_link" layoutX="124.0" layoutY="45.0" prefHeight="31.0" prefWidth="353.0" />
+      <TextField fx:id="outer_link" layoutX="124.0" layoutY="100.0" prefHeight="31.0" prefWidth="353.0" />
+      <TextField fx:id="height" layoutX="124.0" layoutY="159.0" prefHeight="31.0" prefWidth="353.0" />
+   </children>
+</AnchorPane>
