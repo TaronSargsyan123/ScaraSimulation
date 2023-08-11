@@ -1,4 +1,4 @@
-package com.example.scarasimulation;
+package com.example.scarasimulation.scara;
 
 import javafx.scene.AmbientLight;
 import javafx.scene.Camera;
@@ -11,7 +11,7 @@ import javafx.scene.shape.Cylinder;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 
-public class SCARAModel {
+public class ScaraModel {
 
 
     private static final int PLANE_SIZE = 1000;
@@ -31,7 +31,7 @@ public class SCARAModel {
     private double armGroupAngle = 0;
     private double outerLinkGroupAngle = 0;
 
-    private final Kinematics kinematics = new Kinematics();
+    private final ScaraKinematics SCARAKinematics = new ScaraKinematics();
 
     private double x;
     private  double y;
@@ -57,20 +57,20 @@ public class SCARAModel {
     private Box outerLink;
     private Cylinder outerLinkEndCylinder;
 
-    public SCARAModel(Camera camera, double x, double y){
+    public ScaraModel(Camera camera, double x, double y){
         this.camera = camera;
         this.x = x;
         this.y = y;
-        kinematics.setLinks(innerLinkSize, outerLinkSize);
+        SCARAKinematics.setLinks(innerLinkSize, outerLinkSize);
     }
 
-    public SCARAModel(Camera camera, double x, double y, double innerLinkSize, double outerLinkSize){
+    public ScaraModel(Camera camera, double x, double y, double innerLinkSize, double outerLinkSize){
         this.camera = camera;
         this.x = x;
         this.y = y;
         this.innerLinkSize = innerLinkSize;
         this.outerLinkSize = outerLinkSize;
-        kinematics.setLinks(innerLinkSize, outerLinkSize);
+        SCARAKinematics.setLinks(innerLinkSize, outerLinkSize);
     }
 
     public Group drawRobot(double x, double y){
@@ -174,8 +174,8 @@ public class SCARAModel {
 
 
     public void changeArmPos(double x, double y){
-        kinematics.setLinks(innerLinkSize, outerLinkSize);
-        double[] angles = kinematics.inverseKinematics(x, y);
+        SCARAKinematics.setLinks(innerLinkSize, outerLinkSize);
+        double[] angles = SCARAKinematics.inverseKinematics(x, y);
         double armGroupDeltaAngle = angles[0]- armGroupAngle;
         Rotate rotateInnerLink = new Rotate(armGroupDeltaAngle, 0, -4, 0, Rotate.Y_AXIS);
         armGroup.getTransforms().add(rotateInnerLink);
@@ -187,8 +187,8 @@ public class SCARAModel {
     }
 
     private void setPos(double tempX, double tempY){
-        kinematics.setLinks(innerLinkSize, outerLinkSize);
-        double[] angles = kinematics.inverseKinematics(tempX, tempY);
+        SCARAKinematics.setLinks(innerLinkSize, outerLinkSize);
+        double[] angles = SCARAKinematics.inverseKinematics(tempX, tempY);
         Rotate rotateInnerLink = new Rotate(angles[0], 0, -4, 0, Rotate.Y_AXIS);
         armGroup.getTransforms().add(rotateInnerLink);
 

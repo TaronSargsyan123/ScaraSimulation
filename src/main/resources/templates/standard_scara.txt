@@ -1,0 +1,5 @@
+Name : Standard_Scara
+InnerLink : 15
+OuterLink : 10
+Column : 5
+Unit : 1

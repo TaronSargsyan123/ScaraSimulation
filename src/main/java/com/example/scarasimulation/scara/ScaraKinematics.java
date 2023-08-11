@@ -1,8 +1,8 @@
-package com.example.scarasimulation;
+package com.example.scarasimulation.scara;
 
 import java.lang.Math;
 
-public class Kinematics {
+public class ScaraKinematics {
     private double L1 = 5;
     private double L2 = 5;
 

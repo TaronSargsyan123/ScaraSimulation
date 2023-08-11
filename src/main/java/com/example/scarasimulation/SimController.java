@@ -1,9 +1,9 @@
 package com.example.scarasimulation;
 
+import com.example.scarasimulation.scara.ScaraModel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.scene.*;
@@ -17,10 +17,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class SimController {
 
@@ -43,7 +39,7 @@ public class SimController {
     private double innerLinkSize;
     private double outerLinkSize;
 
-    private SCARAModel scaraModel;
+    private ScaraModel scaraModel;
     private VBox vBox = new VBox();
 
     private TextField xTextField = new TextField();
@@ -87,9 +83,9 @@ public class SimController {
         this.outerLinkSize = outerLinkSize;
 
         if (this.innerLinkSize != 0 && this.outerLinkSize != 0){
-            scaraModel = new SCARAModel(camera, x, y, innerLinkSize, outerLinkSize);
+            scaraModel = new ScaraModel(camera, x, y, innerLinkSize, outerLinkSize);
         }else {
-            scaraModel = new SCARAModel(camera, x, y);
+            scaraModel = new ScaraModel(camera, x, y);
         }
         camera.setFarClip(200);
         setCameraPos(camera);

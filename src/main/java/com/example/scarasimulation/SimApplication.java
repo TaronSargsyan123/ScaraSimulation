@@ -3,6 +3,7 @@ package com.example.scarasimulation;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -17,16 +18,17 @@ public class SimApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         stage = primaryStage;
-        stage.setResizable(true);
+        stage.setResizable(false);
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("initial-window.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
+        stage.getIcons().add(new Image("C:\\Users\\Dell\\IdeaProjects\\scaraVideo\\src\\main\\resources\\images\\temp_logo.png"));
+        stage.setHeight(630);
+        stage.setWidth(800);
 
-        stage.setMinHeight(500);
-        stage.setMinWidth(500);
         stage.setScene(scene);
-        stage.setTitle("SCARA Robot sim");
+        stage.setTitle("Welcome to SCARA Robot sim");
         stage.show();
 
 
@@ -45,8 +47,9 @@ public class SimApplication extends Application {
         scene.widthProperty().addListener((observable, oldValue, newValue) -> controller.resizeSubScene());
         scene.heightProperty().addListener((observable, oldValue, newValue) -> controller.resizeSubScene());
         stage = new Stage();
+        stage.getIcons().add(new Image("C:\\Users\\Dell\\IdeaProjects\\scaraVideo\\src\\main\\resources\\images\\temp_logo.png"));
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle("Другая форма");
+        stage.setTitle("SCARA Robot sim");
         stage.setScene(scene);
         stage.show();
 
