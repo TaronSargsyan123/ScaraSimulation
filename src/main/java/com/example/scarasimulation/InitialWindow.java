@@ -140,6 +140,7 @@ public class InitialWindow {
                 new_project_button.translateYProperty().set(20);
                 new_project_button.translateXProperty().set(5);
                 new_project_button.setTextFill(Color.valueOf(Colors.firstTextColor));
+                projects_button.setStyle("-fx-background-color: " +"transperent" + ";");
             }
         });
 
@@ -152,6 +153,7 @@ public class InitialWindow {
                 settings_button.translateYProperty().set(25);
                 settings_button.translateXProperty().set(5);
                 settings_button.setTextFill(Color.valueOf(Colors.firstTextColor));
+                projects_button.setStyle("-fx-background-color: " +"transperent" + ";");
             }
         });
 
@@ -164,6 +166,7 @@ public class InitialWindow {
                 learn_button.translateYProperty().set(30);
                 learn_button.translateXProperty().set(5);
                 learn_button.setTextFill(Color.valueOf(Colors.firstTextColor));
+                projects_button.setStyle("-fx-background-color: " +"transperent" + ";");
             }
         });
 

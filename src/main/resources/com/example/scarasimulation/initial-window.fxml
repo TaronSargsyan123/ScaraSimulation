@@ -19,8 +19,10 @@
             <HBox maxHeight="185.0" prefHeight="185.0" prefWidth="160.0" style="-fx-max-height: 70; -fx-translate-y: 20;">
                <children>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" style="-fx-translate-y: 25; -fx-translate-x: 10;">
+
                      <image>
-                        <Image url="C:\Users\Dell\IdeaProjects\scaraVideo\src\main\resources\images\temp_logo.png" />
+                        <Image url="@../../../images/logo.png" />
+
                      </image>
                   </ImageView>
                   <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-padding: 20;">
@@ -37,6 +39,13 @@
                         </Text>
                      </children>
                   </VBox>
+                  <ImageView fitHeight="20" fitWidth="20" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets top="30" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@../../../images/downloads.png" />
+                     </image></ImageView>
                </children>
             </HBox>
             <Button fx:id="projects_button" alignment="TOP_LEFT" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="184.0" style="-fx-min-width: 160; -fx-translate-y: 15; -fx-background-color: transperent; -fx-translate-x: 5; -fx-text-fill: #bbbbbb;" text="Projects">
@@ -75,7 +84,7 @@
                      <HBox.margin>
                         <Insets bottom="20" left="20" top="20" />
                      </HBox.margin>
-                     <Image url="C:\Users\Dell\IdeaProjects\scaraVideo\src\main\resources\images\search.png" />
+                     <Image url="@../../../images/search.png" />
                   </ImageView>
 
                   <TextField promptText="Search project" style="-fx-background-color: transperent; -fx-prompt-text-fill: #7a8084; -fx-text-fill: #7a8084;">
@@ -87,7 +96,7 @@
                </children>
             </HBox>
 
-            <Line endX="335" startX="900" stroke="#7a8084">
+            <Line endX="335" startX="900" stroke="#3c3f41">
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" />
                </VBox.margin>

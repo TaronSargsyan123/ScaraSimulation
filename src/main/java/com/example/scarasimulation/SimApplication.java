@@ -28,7 +28,7 @@ public class SimApplication extends Application {
         stage.setWidth(800);
 
         stage.setScene(scene);
-        stage.setTitle("Welcome to SCARA Robot sim");
+        stage.setTitle("Welcome to ReviveSim");
         stage.show();
 
 
@@ -49,7 +49,7 @@ public class SimApplication extends Application {
         stage = new Stage();
         stage.getIcons().add(new Image("C:\\Users\\Dell\\IdeaProjects\\scaraVideo\\src\\main\\resources\\images\\temp_logo.png"));
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setTitle("SCARA Robot sim");
+        stage.setTitle("Revive sim");
         stage.setScene(scene);
         stage.show();
 

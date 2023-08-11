@@ -28,8 +28,8 @@ public class LettersImageGenerator {
 
             g2d.setPaint(gradient);
             g2d.fillRect(0, 0, width, height);
-            g2d.setColor(Color.BLACK);
-            g2d.setFont(new Font("Arial", Font.PLAIN, 30));
+            g2d.setColor(Color.decode(Colors.darkGray));
+            g2d.setFont(new Font("Sagoe", Font.PLAIN, 30));
             g2d.drawString(firstLetter, 5, 30);
             g2d.drawString(secondLetter, 25, 30);
             g2d.dispose();
