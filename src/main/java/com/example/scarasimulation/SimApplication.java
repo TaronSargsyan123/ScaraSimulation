@@ -23,7 +23,7 @@ public class SimApplication extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("initial-window.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
-        stage.getIcons().add(new Image("C:\\Users\\Dell\\IdeaProjects\\scaraVideo\\src\\main\\resources\\images\\temp_logo.png"));
+        stage.getIcons().add(new Image("C:\\Users\\taron\\IdeaProjects\\ScaraSimulation\\src\\main\\resources\\images\\logo.png"));
         stage.setHeight(630);
         stage.setWidth(800);
 
@@ -47,7 +47,7 @@ public class SimApplication extends Application {
         scene.widthProperty().addListener((observable, oldValue, newValue) -> controller.resizeSubScene());
         scene.heightProperty().addListener((observable, oldValue, newValue) -> controller.resizeSubScene());
         stage = new Stage();
-        stage.getIcons().add(new Image("C:\\Users\\Dell\\IdeaProjects\\scaraVideo\\src\\main\\resources\\images\\temp_logo.png"));
+        stage.getIcons().add(new Image("C:\\Users\\taron\\IdeaProjects\\ScaraSimulation\\src\\main\\resources\\images\\logo.png"));
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setTitle("Revive sim");
         stage.setScene(scene);

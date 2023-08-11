@@ -41,7 +41,7 @@ public class InitialWindow {
         try {
             SimApplication.openMainWindow(innerLinkSize, outerLinkSize, column);
         }catch (Exception e){
-            System.out.println("invalid values");
+            e.printStackTrace();
         }
 
 

@@ -9,8 +9,5 @@
         <module name="ScaraSimulation" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="ScaraSimulation" target="17" />
-    </bytecodeTargetLevel>
   </component>
 </project>
