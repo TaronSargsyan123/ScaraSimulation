@@ -7,7 +7,7 @@ public class Colors {
     static Color secondColor = new Color(123, 90, 183);
     static String gray = "#3c3f41";
     static String darkGray = "#313335";
-    static String lightGray = "#7a8084";
+    static String lightGray = "#5b6163";
     static String firstTextColor = "#bbbbbb";
     static String secondTextColor = "#757575";
     static String darkBlue = "#0d293e";

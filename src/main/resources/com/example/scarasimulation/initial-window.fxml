@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #313335;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.scarasimulation.InitialWindow">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #313335;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.scarasimulation.InitialWindow">
    <left>
       <VBox prefHeight="400.0" prefWidth="193.0" style="-fx-background-color: #3c3f41;" BorderPane.alignment="CENTER">
          <children>
@@ -73,23 +73,23 @@
    </left>
    <center>
 
-      <VBox fx:id="vbox_test" BorderPane.alignment="CENTER">
+      <VBox prefWidth="550.0" BorderPane.alignment="CENTER">
 
          <children>
 
             <HBox prefHeight="200.0" prefWidth="100.0" style="-fx-max-height: 40;">
 
                <children>
-                  <ImageView fitHeight="15" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="search_image" fitHeight="10" fitWidth="10.0" pickOnBounds="true" preserveRatio="true">
                      <HBox.margin>
-                        <Insets bottom="20" left="20" top="20" />
+                        <Insets bottom="10" left="20" top="22" />
                      </HBox.margin>
                      <Image url="@../../../images/search.png" />
                   </ImageView>
 
-                  <TextField promptText="Search project" style="-fx-background-color: transperent; -fx-prompt-text-fill: #7a8084; -fx-text-fill: #7a8084;">
+                  <TextField fx:id="search_text_field" promptText="Search project" style="-fx-background-color: transperent; -fx-prompt-text-fill: #7a8084; -fx-text-fill: #7a8084;">
                      <HBox.margin>
-                        <Insets bottom="20" top="15" />
+                        <Insets bottom="10" top="15" />
                      </HBox.margin>
                   </TextField>
 
@@ -101,6 +101,7 @@
                   <Insets bottom="10.0" left="10.0" />
                </VBox.margin>
             </Line>
+            <VBox fx:id="vbox_test" prefHeight="330.0" prefWidth="576.0" />
 
          </children>
       </VBox>
