@@ -13,6 +13,8 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 
 public class InitialWindow {
@@ -49,15 +51,21 @@ public class InitialWindow {
     }
 
     private void drawProjects(){
-        try {
-            ScaraDeserializer deserializer = new ScaraDeserializer("src/main/resources/templates/standard_scara.txt");
-            projectsViewGenerator.addSCARAView(deserializer.getName(), deserializer.getInnerLink(), deserializer.getOuterLink(), deserializer.getColumn(), vbox_test);
-            projectsViewGenerator.addSCARAView(deserializer.getName(), deserializer.getInnerLink(), deserializer.getOuterLink(), deserializer.getColumn(), vbox_test);
-            projectsViewGenerator.addSCARAView(deserializer.getName(), deserializer.getInnerLink(), deserializer.getOuterLink(), deserializer.getColumn(), vbox_test);
 
+        String fileName = "src/main/resources/projectsPaths.txt";
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+                ScaraDeserializer deserializer = new ScaraDeserializer(line);
+                projectsViewGenerator.addSCARAView(deserializer.getName(), deserializer.getInnerLink(), deserializer.getOuterLink(), deserializer.getColumn(), vbox_test);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
     }
 
     private void projectsButtonOnClick(){
