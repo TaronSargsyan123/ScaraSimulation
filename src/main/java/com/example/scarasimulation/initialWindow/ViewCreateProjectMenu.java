@@ -1,5 +1,8 @@
-package com.example.scarasimulation;
+package com.example.scarasimulation.initialWindow;
 
+import com.example.scarasimulation.Colors;
+import com.example.scarasimulation.SaveUtils;
+import com.example.scarasimulation.SimApplication;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;

@@ -1,3 +1,1 @@
 C:\Users\taron\IdeaProjects\ScaraSimulation\src\main\resources\templates\standard_scara.txt
-C:\Users\taron/Downloads/TestProject.txt
-C:\Users\taron/Downloads/Ani.txt

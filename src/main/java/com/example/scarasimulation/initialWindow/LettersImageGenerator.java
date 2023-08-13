@@ -1,5 +1,6 @@
-package com.example.scarasimulation;
+package com.example.scarasimulation.initialWindow;
 
+import com.example.scarasimulation.Colors;
 import javafx.scene.image.WritableImage;
 
 import java.awt.*;

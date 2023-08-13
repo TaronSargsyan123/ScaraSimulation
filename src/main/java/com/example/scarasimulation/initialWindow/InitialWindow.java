@@ -1,9 +1,7 @@
-package com.example.scarasimulation;
+package com.example.scarasimulation.initialWindow;
 
+import com.example.scarasimulation.Colors;
 import com.example.scarasimulation.scara.ScaraDeserializer;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -11,7 +9,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

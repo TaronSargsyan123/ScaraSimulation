@@ -1,5 +1,7 @@
-package com.example.scarasimulation;
+package com.example.scarasimulation.initialWindow;
 
+import com.example.scarasimulation.Colors;
+import com.example.scarasimulation.SimApplication;
 import javafx.geometry.Insets;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;

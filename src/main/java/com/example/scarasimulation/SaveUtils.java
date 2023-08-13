@@ -12,7 +12,7 @@ public class SaveUtils {
 
 
     public String getDownloadsFolderPath(){
-        String downloads = System.getProperty("user.home")+"/Downloads/";
+        String downloads = System.getProperty("user.home")+"\\Downloads\\";
         return downloads;
 
     }
@@ -39,8 +39,6 @@ public class SaveUtils {
              BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
             bufferedWriter.write(path);
             bufferedWriter.newLine();
-
-            System.out.println("Data appended to file.");
 
         } catch (IOException e) {
             e.printStackTrace();
