@@ -115,6 +115,8 @@ public class TitleBar  {
             stage.setY(event.getScreenY() - yOffset);
         });
 
+
+
         titleBar.setLeft(buttonsHBox);
         titleBar.setRight(labelHBox);
 

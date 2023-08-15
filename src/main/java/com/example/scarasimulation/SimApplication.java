@@ -2,46 +2,32 @@ package com.example.scarasimulation;
 
 import com.example.scarasimulation.initialWindow.TitleBar;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.NodeOrientation;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.ToolBar;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.stage.*;
-
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
 
 public class SimApplication extends Application {
     public static Stage stage;
-    private TitleBar titleBarCreator  = new TitleBar();
 
 
 
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        primaryStage.initStyle(StageStyle.UNDECORATED);
+        primaryStage.initStyle(StageStyle.DECORATED);
 
-        // Create a custom title bar
-        BorderPane titleBar = titleBarCreator.createTitleBar(primaryStage);
+
+
         stage = primaryStage;
-        stage.setResizable(true);
+        primaryStage.setResizable(true);
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("initial-window.fxml"));
         BorderPane root = loader.load();
@@ -50,10 +36,11 @@ public class SimApplication extends Application {
         stage.setHeight(630);
         stage.setWidth(800);
 
-        root.setTop(titleBar);
+        // --- activate custom title bar ----
+        customTitleBar(root);
+
 
         stage.setScene(scene);
-        //ikscene.getStylesheets().add(getClass().getResource("titleBarStyle.css").toExternalForm());
         stage.setTitle("Welcome to ReviveSim");
         stage.show();
 
@@ -80,6 +67,13 @@ public class SimApplication extends Application {
         stage.setScene(scene);
         stage.show();
 
+    }
+
+    private void customTitleBar(BorderPane root){
+        stage.initStyle(StageStyle.UNDECORATED);
+        TitleBar titleBarCreator  = new TitleBar();
+        BorderPane titleBar = titleBarCreator.createTitleBar(stage);
+        root.setTop(titleBar);
     }
 
 

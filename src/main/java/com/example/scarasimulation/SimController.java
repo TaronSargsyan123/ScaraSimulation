@@ -15,24 +15,18 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 
 public class SimController {
-
-
     private Group mainGroup = new Group();
-
     private Camera camera = new PerspectiveCamera(true);
-
-
     private double subSceneWidth = 800;
     private double subSceneHeight = 600;
     private Group startGroup;
-
     private double x = -5;
     private double y = 4;
-
     private double startX = x;
     private double startY = y;
 
@@ -45,17 +39,6 @@ public class SimController {
     private TextField xTextField = new TextField();
     private TextField yTextField = new TextField();
 
-    private TextField innerLinkSizeTextField = new TextField();
-    private TextField outerLinkSizeTextField = new TextField();
-
-    private TextField standHeightTextField = new TextField();
-    private TextField standRadiusTextField = new TextField();
-
-
-
-    @FXML
-    public VBox right_vbox;
-
     public SubScene subScene;
 
     @FXML
@@ -64,18 +47,7 @@ public class SimController {
 
     @FXML
     private void initialize() {
-//        scaraModel = new SCARAModel(camera, x, y); //, innerLinkSize, outerLinkSize);;
-//        camera.setFarClip(200);
-//        setCameraPos(camera);
-//        startGroup = scaraModel.drawRobot(x, y);
-//        subSceneWidth = 1200;
-//        subSceneHeight = 700;
-//        subScene = new SubScene(startGroup, subSceneWidth, subSceneHeight, true, SceneAntialiasing.BALANCED);
-//        subScene.setFill(scaraModel.getBackgroundColor());
-//        subScene.setCamera(camera);
-//        mainGroup.getChildren().add(subScene);
-//        mainGroup.getChildren().add(drawMenu(185, subSceneHeight));
-//        main_anchor_pane.getChildren().add(mainGroup);
+
     }
 
     public void start(double innerLinkSize, double outerLinkSize, double height){
@@ -137,9 +109,6 @@ public class SimController {
         scaraModel.changeArmPos(x, y);
     }
 
-    public SubScene betSubScene(){
-        return subScene;
-    }
 
     public void resizeSubScene() {
         double sceneWidth = subScene.getScene().getWidth();
@@ -150,66 +119,53 @@ public class SimController {
 
     }
 
+
+
     private VBox drawMenu(double width, double height){
 
-        vBox.setStyle("-fx-background-color: rgba(255, 255, 255, 0.5); -fx-background-radius: 10;");
+        vBox.setStyle("-fx-background-color: " + Colors.gray + ";");
         vBox.setPadding(new Insets(10, 5, 0, 5));
         vBox.setSpacing(10);
 
-        innerLinkSizeTextField.setPrefWidth(90);
-        HBox hbIl = new HBox(new Label("Inner link size:"), innerLinkSizeTextField);
-        hbIl.setSpacing(10);
+        setXTextField();
+        setYTextField();
 
-        outerLinkSizeTextField.setPrefWidth(87);
-        HBox hbOl = new HBox(new Label("Outer link size:"), outerLinkSizeTextField);
-        hbOl.setSpacing(10);
+        Label labelX = getCordLabel("X:");
+        Label labelY = getCordLabel("Y:");
 
-        standHeightTextField.setPrefWidth(95);
-        HBox hbSh = new HBox(new Label("Stand height:"), standHeightTextField);
-        hbSh.setSpacing(10);
+        HBox hBoxX = new HBox(labelX, xTextField);
 
-        standRadiusTextField.setPrefWidth(96);
-        HBox hbSr = new HBox(new Label("Stand radius:"), standRadiusTextField);
-        hbSr.setSpacing(10);
+        hBoxX.setSpacing(10);
 
-        innerLinkSizeTextField.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                scaraModel.setInnerLinkSize(Double.parseDouble(innerLinkSizeTextField.getText()));
-                scaraModel.refreshRobot();
-            }
-        });
+        HBox hBoxY = new HBox(labelY, yTextField);
+        hBoxY.setTranslateY(10);
+        hBoxY.setSpacing(10);
 
+        Button startPosButton = getStartPosButton(width);
 
+        VBox simulationGroup = new VBox(hBoxX, hBoxY, startPosButton);
+
+        vBox.getChildren().addAll(simulationGroup);
+        vBox.setPrefWidth(width);
+        vBox.setPrefHeight(height);
+        return vBox;
+    }
 
 
-        xTextField.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                x = Double.parseDouble(xTextField.getText());
-                scaraModel.changeArmPos(x, y);
-
-            }
-        });
-
-        yTextField.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                y = Double.parseDouble(yTextField.getText());
-                scaraModel.changeArmPos(x, y);
-            }
-        });
-        xTextField.setText(String.valueOf(x));
-        yTextField.setText(String.valueOf(y));
 
 
-        HBox hbX = new HBox(new Label("X:"), xTextField);
-        hbX.setSpacing(10);
 
-        HBox hbY = new HBox(new Label("Y:"), yTextField);
-        hbY.setSpacing(10);
 
+
+
+
+
+
+
+    private Button getStartPosButton(double width) {
         Button button = new Button("Go to start pos");
+        button.setStyle("-fx-background-color: " + Colors.lightBlue + ";" + "-fx-text-fill:" + Colors.white + ";");
+        button.setTranslateY(20);
         button.setPrefWidth(width);
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -221,48 +177,50 @@ public class SimController {
                 yTextField.setText(String.valueOf(y));
             }
         });
+        return button;
+    }
 
+    private Label getCordLabel(String text){
+        Label label = new Label();
+        label.setText(text);
+        label.setTextFill(Color.valueOf(Colors.firstTextColor));
+        label.setTranslateY(5);
 
-        VBox confGroup = new VBox(new Separator(Orientation.HORIZONTAL), hbIl, hbOl, new Separator(Orientation.HORIZONTAL), hbSh, hbSr);
+        return label;
+    }
 
-        Button simulationButton = new Button("Simulation");
-        Button confButton = new Button("Scene config");
-        VBox simulationGroup = new VBox(new Separator(Orientation.HORIZONTAL), hbX, hbY, new Separator(Orientation.HORIZONTAL), button);
-
-        simulationButton.setOnAction(new EventHandler<ActionEvent>() {
+    private void setXTextField(){
+        xTextField.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                vBox.getChildren().add(simulationGroup);
-                vBox.getChildren().remove(confGroup);
+                x = Double.parseDouble(xTextField.getText());
+                scaraModel.changeArmPos(x, y);
+
             }
         });
 
-        confButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                //vBox.getChildren().remove(simulationGroup);
-                //vBox.getChildren().add(confGroup);
+        xTextField.setText(String.valueOf(x));
+        xTextField.setStyle("-fx-background-color: " + Colors.gray +";" + "; -fx-border-color: " + Colors.lightGray + "; -fx-text-fill: " + Colors.firstTextColor + ";");
 
-            }
-        });
-
-        HBox hbButtons = new HBox(simulationButton, confButton);
-        hbButtons.setSpacing(10);
-        hbButtons.setPrefWidth(height);
-
-
-
-
-        vBox.getChildren().addAll(hbButtons, simulationGroup);
-        vBox.setPrefWidth(width);
-        vBox.setPrefHeight(height);
-        return vBox;
     }
 
 
 
 
 
+    private void setYTextField(){
+        yTextField.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                y = Double.parseDouble(yTextField.getText());
+                scaraModel.changeArmPos(x, y);
+            }
+        });
+
+        yTextField.setText(String.valueOf(y));
+        yTextField.setStyle("-fx-background-color: " + Colors.gray +";" + "; -fx-border-color: " + Colors.lightGray + "; -fx-text-fill: " + Colors.firstTextColor + ";");
+
+    }
 
 
 }

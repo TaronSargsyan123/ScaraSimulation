@@ -1,1 +1,5 @@
 C:\Users\taron\IdeaProjects\ScaraSimulation\src\main\resources\templates\standard_scara.txt
+C:\Users\taron\Downloads\test.txt
+C:\Users\taron\Downloads\projectAAAA.txt
+C:\Users\taron\Downloads\wdqdqwdq.txt
+C:\Users\taron\Downloads\rbttrh.txt

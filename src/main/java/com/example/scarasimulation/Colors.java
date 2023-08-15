@@ -13,4 +13,5 @@ public class Colors {
     public static String darkBlue = "#0d293e";
     public static String lightBlue = "#4b6eaf";
     public static String white = "#ffffff";
+    public static String black = "#363636";
 }

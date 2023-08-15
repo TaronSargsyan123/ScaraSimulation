@@ -1,5 +1,6 @@
 package com.example.scarasimulation.scara;
 
+import com.example.scarasimulation.Colors;
 import javafx.scene.AmbientLight;
 import javafx.scene.Camera;
 import javafx.scene.Group;
@@ -8,20 +9,20 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.Cylinder;
+import javafx.scene.shape.DrawMode;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 
 public class ScaraModel {
 
 
-    private static final int PLANE_SIZE = 1000;
-    private static final int TEXTURE_SIZE = 50;
+    private static final int PLANE_SIZE = 2000;
+    private static final int TEXTURE_SIZE = 20;
 
     private final Color innerLinkColor = Color.rgb(255, 190, 10);
     private final Color outerLinkColor = Color.rgb(0, 206, 209);
-    private final Color backgroundColor = Color.rgb(213,213,213);
+    private final Color backgroundColor = Color.valueOf(Colors.black);
     private final Color standColor = Color.rgb(85,173,122);
-    private final Color planeColor = Color.rgb(255, 255, 255);
 
     private Camera camera;
 
@@ -78,26 +79,34 @@ public class ScaraModel {
         PhongMaterial material = new PhongMaterial();
         material.setDiffuseMap(createTexture());
 
-        plane = new Cylinder(50, 0.1);
+        plane = new Cylinder(100, 0.1);
         cylinder = new Cylinder(cylinderRadius, cylinderHeight);
 
         innerLinkStartCylinder = new Cylinder(innerLinkRadius, 1);
         innerLink = new Box(innerLinkSize,1,innerLinkRadius*2);
+        Box innerLinkLine = new Box(innerLinkSize,1,innerLinkRadius*2);
+        innerLinkLine.setDrawMode(DrawMode.LINE);
         innerLinkEndCylinder = new Cylinder(innerLinkRadius, 1);
 
         outerLinkStartCylinder = new Cylinder(outerLinkRadius, 1);
         outerLink = new Box(outerLinkSize,1,outerLinkRadius*2);
+        Box outerLinkLine = new Box(outerLinkSize,1,outerLinkRadius*2);
+        outerLinkLine.setDrawMode(DrawMode.LINE);
         outerLinkEndCylinder = new Cylinder(outerLinkRadius, 1);
+
 
         cylinder.setMaterial(new PhongMaterial(standColor));
         plane.setMaterial(material);
         outerLinkStartCylinder.setMaterial(new PhongMaterial(outerLinkColor));
         outerLink.setMaterial(new PhongMaterial(outerLinkColor));
+        outerLinkLine.setMaterial(new PhongMaterial(Color.valueOf(Colors.black)));
         outerLinkEndCylinder.setMaterial(new PhongMaterial(outerLinkColor));
 
         innerLinkStartCylinder.setMaterial(new PhongMaterial(innerLinkColor));
         innerLink.setMaterial(new PhongMaterial(innerLinkColor));
+        innerLinkLine.setMaterial(new PhongMaterial(Color.valueOf(Colors.black)));
         innerLinkEndCylinder.setMaterial(new PhongMaterial(innerLinkColor));
+
 
 
         plane.translateYProperty().set(2.5);
@@ -105,20 +114,25 @@ public class ScaraModel {
         innerLinkEndCylinder.translateYProperty().set(-3);
         innerLinkEndCylinder.translateXProperty().set(innerLinkSize);
 
+
         outerLink.translateYProperty().set(-4);
         outerLink.translateXProperty().set(innerLinkSize + outerLinkSize/2);
+        outerLinkLine.translateYProperty().set(-4);
+        outerLinkLine.translateXProperty().set(innerLinkSize + outerLinkSize/2);
         outerLinkEndCylinder.translateYProperty().set(-4);
         outerLinkEndCylinder.translateXProperty().set(innerLinkSize + outerLinkSize);
 
 
         Translate translateLOne = new Translate(innerLinkSize/2, -3, 0);
         innerLink.getTransforms().add(translateLOne);
+        innerLinkLine.getTransforms().add(translateLOne);
+
 
         Translate translateLOneCylinder = new Translate(innerLinkSize, -4, 0);
         outerLinkStartCylinder.getTransforms().add(translateLOneCylinder);
 
-        outerLinkGroup.getChildren().addAll(outerLinkStartCylinder, outerLink, outerLinkEndCylinder);
-        armGroup.getChildren().addAll(innerLink, innerLinkStartCylinder, innerLinkEndCylinder, outerLinkGroup);
+        outerLinkGroup.getChildren().addAll(outerLinkStartCylinder, outerLink, outerLinkEndCylinder, outerLinkLine);
+        armGroup.getChildren().addAll(innerLink, innerLinkStartCylinder, innerLinkEndCylinder, outerLinkGroup, innerLinkLine);
 
         PointLight pointLight = new PointLight(Color.WHITE);
         pointLight.setTranslateX(0);
@@ -128,12 +142,15 @@ public class ScaraModel {
         // Create an AmbientLight
         AmbientLight ambientLight = new AmbientLight(Color.WHITE);
         ambientLight.setLightOn(true);
+
         setPos(x, y);
 
 
 
 
-        root.getChildren().addAll(camera, plane, cylinder, armGroup);
+
+
+        root.getChildren().addAll(camera, plane, cylinder, armGroup, ambientLight);
 
         return root;
     }
@@ -266,10 +283,10 @@ public class ScaraModel {
                     for (int y = 0; y < tileSize; y++) {
                         if (color == 255){
                             pixelWriter.setColor(i * tileSize + x, j * tileSize + y,
-                                    javafx.scene.paint.Color.rgb(255, 255, 255));
+                                    javafx.scene.paint.Color.valueOf(Colors.lightGray));
                         } else {
                             pixelWriter.setColor(i * tileSize + x, j * tileSize + y,
-                                    javafx.scene.paint.Color.rgb(200, 255, 255));
+                                    javafx.scene.paint.Color.valueOf(Colors.gray));
                         }
 
                     }
