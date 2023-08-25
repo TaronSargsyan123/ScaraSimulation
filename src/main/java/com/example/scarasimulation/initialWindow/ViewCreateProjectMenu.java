@@ -161,7 +161,7 @@ public class ViewCreateProjectMenu {
                     createButtonClick(saveUtils, path, name, Double.valueOf(innerLinkTextField.getText().toString()),
                             Double.valueOf(outerLinkTextField.getText().toString()), Double.valueOf(columnTextField.getText().toString()));
 
-                    SimApplication.openMainWindow(Double.valueOf(innerLinkTextField.getText().toString()), Double.valueOf(outerLinkTextField.getText().toString()), Double.valueOf(columnTextField.getText().toString()));
+                    SimApplication.openMainWindow(Double.valueOf(innerLinkTextField.getText().toString()), Double.valueOf(outerLinkTextField.getText().toString()), Double.valueOf(columnTextField.getText().toString()), path  + name + ".txt");
                     saveUtils.addPathToProjectPaths(path  + name + ".txt");
                 }catch (Exception e){
                     e.printStackTrace();

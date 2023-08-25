@@ -15,7 +15,7 @@ import java.io.IOException;
 public class ViewProjectsMenu {
     private LettersImageGenerator lettersImageGenerator = new LettersImageGenerator();
 
-    public void addSCARAView(String name, double innerLinkSize, double outerLinkSize, double column, VBox parent){
+    public void addSCARAView(String name, double innerLinkSize, double outerLinkSize, double column, VBox parent, String path){
         HBox hBox = new HBox();
 
         VBox textVbox = new VBox();
@@ -51,7 +51,7 @@ public class ViewProjectsMenu {
 
         hBox.setOnMouseClicked(mouseEvent -> {
             try {
-                SimApplication.openMainWindow(innerLinkSize, outerLinkSize, column);
+                SimApplication.openMainWindow(innerLinkSize, outerLinkSize, column, path);
             } catch (IOException e) {
                 e.printStackTrace();
             }

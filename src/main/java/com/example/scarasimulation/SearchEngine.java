@@ -27,7 +27,7 @@ public class SearchEngine {
                     while ((line = reader.readLine()) != null) {
                         ScaraDeserializer deserializer = new ScaraDeserializer(line);
                         if (Objects.equals(deserializer.getName(), name)) {
-                            projectsViewGenerator.addSCARAView(deserializer.getName(), deserializer.getInnerLink(), deserializer.getOuterLink(), deserializer.getColumn(), vBox);
+                            projectsViewGenerator.addSCARAView(deserializer.getName(), deserializer.getInnerLink(), deserializer.getOuterLink(), deserializer.getColumn(), vBox, deserializer.getPath());
                         }
                     }
                 } catch (IOException e) {

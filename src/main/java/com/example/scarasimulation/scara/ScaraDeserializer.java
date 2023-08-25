@@ -8,12 +8,15 @@ public class ScaraDeserializer {
     private double outerLink;
     private double column;
     private String name;
+    private String path;
 
 
     public ScaraDeserializer(String path) throws IOException {
+        this.path = path;
         File file = new File(path); //"src/main/resources/templates/standard_scara.txt"
         BufferedReader br = new BufferedReader(new FileReader(file));
         String st;
+
 
         while ((st = br.readLine()) != null) {
             st = st.replaceAll(" ", "");
@@ -46,6 +49,11 @@ public class ScaraDeserializer {
 
     public String getName(){
         return name;
+    }
+
+    public String getPath(){
+        System.out.println(path);
+        return path;
     }
 
 

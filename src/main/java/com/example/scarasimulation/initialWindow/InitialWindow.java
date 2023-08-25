@@ -64,7 +64,7 @@ public class InitialWindow {
             String line;
             while ((line = reader.readLine()) != null) {
                 ScaraDeserializer deserializer = new ScaraDeserializer(line);
-                projectsViewGenerator.addSCARAView(deserializer.getName(), deserializer.getInnerLink(), deserializer.getOuterLink(), deserializer.getColumn(), projects_vbox);
+                projectsViewGenerator.addSCARAView(deserializer.getName(), deserializer.getInnerLink(), deserializer.getOuterLink(), deserializer.getColumn(), projects_vbox, deserializer.getPath());
                 projectNamesArray.add(deserializer.getName());
             }
         } catch (IOException e) {

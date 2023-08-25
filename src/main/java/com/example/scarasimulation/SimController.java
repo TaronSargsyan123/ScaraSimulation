@@ -1,15 +1,14 @@
 package com.example.scarasimulation;
 
 import com.example.scarasimulation.scara.ScaraModel;
+import com.example.scarasimulation.scriptsSystem.ViewScriptsList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -19,7 +18,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 
+import java.io.IOException;
+
 public class SimController {
+    private String path;
     private Group mainGroup = new Group();
     private Camera camera = new PerspectiveCamera(true);
     private double subSceneWidth = 800;
@@ -50,9 +52,11 @@ public class SimController {
 
     }
 
-    public void start(double innerLinkSize, double outerLinkSize, double height){
+    public void start(double innerLinkSize, double outerLinkSize, double height, String path){
         this.innerLinkSize = innerLinkSize;
         this.outerLinkSize = outerLinkSize;
+        this.path = path;
+        System.out.println(path);
 
         if (this.innerLinkSize != 0 && this.outerLinkSize != 0){
             scaraModel = new ScaraModel(camera, x, y, innerLinkSize, outerLinkSize);
@@ -123,7 +127,7 @@ public class SimController {
 
     private VBox drawMenu(double width, double height){
 
-        vBox.setStyle("-fx-background-color: " + Colors.gray + ";");
+        vBox.setStyle("-fx-background-color: " + Colors.darkGray + ";");
         vBox.setPadding(new Insets(10, 5, 0, 5));
         vBox.setSpacing(10);
 
@@ -164,7 +168,7 @@ public class SimController {
 
     private Button getStartPosButton(double width) {
         Button button = new Button("Go to start pos");
-        button.setStyle("-fx-background-color: " + Colors.lightBlue + ";" + "-fx-text-fill:" + Colors.white + ";");
+        button.setStyle("-fx-background-color: " + Colors.gray + ";" + "-fx-text-fill:" + Colors.white + ";");
         button.setTranslateY(20);
         button.setPrefWidth(width);
         button.setOnAction(new EventHandler<ActionEvent>() {
@@ -175,6 +179,17 @@ public class SimController {
                 y = startY;
                 xTextField.setText(String.valueOf(x));
                 yTextField.setText(String.valueOf(y));
+                System.out.println("Path: " + path);
+
+                ViewScriptsList viewScriptsList = new ViewScriptsList();
+                try {
+                    viewScriptsList.setPath(path);
+                    viewScriptsList.createNewScript("ScriptOne");
+                    viewScriptsList.getScriptsList(path);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
             }
         });
         return button;

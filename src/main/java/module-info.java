@@ -11,4 +11,6 @@ module com.example.scarasimulation {
     opens com.example.scarasimulation.scara to javafx.fxml;
     exports com.example.scarasimulation.initialWindow;
     opens com.example.scarasimulation.initialWindow to javafx.fxml;
+    exports com.example.scarasimulation.scriptsSystem;
+    opens com.example.scarasimulation.scriptsSystem to javafx.fxml;
 }

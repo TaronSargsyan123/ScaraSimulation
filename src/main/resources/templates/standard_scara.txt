@@ -2,4 +2,11 @@ Name : Standard_Scara
 InnerLink : 15
 OuterLink : 10
 Column : 5
-Unit : 1
+
+Script_start:ScriptOne
+Move:5.0:5.0
+Script_end
+
+Script_start:ScriptOne
+Move:5.0:5.0
+Script_end

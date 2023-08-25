@@ -47,7 +47,7 @@ public class SimApplication extends Application {
 
     }
 
-    public static void openMainWindow(double innerLinkSize, double outerLinkSize, double height) throws IOException { //
+    public static void openMainWindow(double innerLinkSize, double outerLinkSize, double height, String path) throws IOException { //
         stage.close();
 
         FXMLLoader loader = new FXMLLoader(SimApplication.class.getResource("main-view.fxml"));
@@ -55,7 +55,7 @@ public class SimApplication extends Application {
         Scene scene = new Scene(root);
 
         SimController controller = loader.getController();
-        controller.start(innerLinkSize, outerLinkSize, height);
+        controller.start(innerLinkSize, outerLinkSize, height, path);
         scene.setOnKeyPressed(controller::keyEvent);
         scene.widthProperty().addListener((observable, oldValue, newValue) -> controller.resizeSubScene());
         scene.heightProperty().addListener((observable, oldValue, newValue) -> controller.resizeSubScene());
